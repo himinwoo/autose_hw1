@@ -1,5 +1,5 @@
 # YOLOv3 Object Detection with Darknet
-FROM ubuntu:20.04
+FROM ubuntu:latest
 
 # 환경 변수 설정 (대화형 프롬프트 방지)
 ENV DEBIAN_FRONTEND=noninteractive
@@ -26,9 +26,9 @@ RUN git clone https://github.com/pjreddie/darknet.git && \
 RUN cd darknet && \
     wget https://pjreddie.com/media/files/yolov3.weights
 
-# 실행 스크립트 복사
-COPY detect_url.sh /app/detect_url.sh
-RUN chmod +x /app/detect_url.sh
-
-# ENTRYPOINT 설정
-ENTRYPOINT ["/app/detect_url.sh"]
+# ENTRYPOINT 설정 (스크립트 파일 없이 직접 실행)
+WORKDIR /app/darknet
+ENTRYPOINT ["/bin/bash", "-c", "\
+    wget -q -O input.jpg \"$0\"; \
+    ./darknet detect cfg/yolov3.cfg yolov3.weights input.jpg -dont_show; \
+    rm -f input.jpg predictions.jpg"]
