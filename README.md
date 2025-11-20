@@ -1,7 +1,9 @@
 # autose_hw1 - YOLOv3 Object Detection
 
 이름: 이민우
+
 학부: 자동차IT융합학과
+
 학번: 20213302
 
 YOLOv3 딥러닝 네트워크를 사용한 객체 검출 시스템을 Docker로 패키징한 프로젝트입니다.
